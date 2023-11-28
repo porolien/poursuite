@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 /// <summary>
@@ -11,8 +12,10 @@ public class PlayerController : MonoBehaviour
     /// Composant Unity permettant de déplacer facilement un objet dans
     /// un niveau.
     /// </summary>
+    /// Un event qui permet de lancer une fonction dans la machine à état de n'importe quel ennemie
     CharacterController _characterController;
-
+    public GuardStateMachine _guardStateMachine;
+    public event Action _noiseAction;
     /// <summary>
     /// Vitesse de déplacement (en m/s) du personnage.
     /// </summary>
@@ -37,4 +40,16 @@ public class PlayerController : MonoBehaviour
 
         _characterController.Move(velocity);
     }
+
+    //Va lancer l'event lorsque le joueur fait un clique droit
+    private void FixedUpdate()
+    {
+        if (Input.GetButton("Fire1"))
+        {
+            Debug.Log("fireeeee");
+            _noiseAction();
+        }
+    }
+
+    
 }
